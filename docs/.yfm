@@ -1,4 +1,29 @@
-langs: ['ru', 'en']
+# Конфигурация сборки Diplodoc
+allowHTML: true
+outputFormat: html
 
-docs-viewer:
-  langs: ['en','ru']
+# Интерфейс
+interface:
+  search: true
+  darkMode: true
+
+# Настройки поиска
+search:
+  provider: local
+  tolerance: 2
+  confidense: phrased
+
+# Если остались старые настройки css/head/js — их можно удалить,
+# так как тема теперь управляется через theme.yaml
+
+varsPreset: ./config/presets.yaml
+
+# Включаем генерацию PDF (технический флаг для сборки)
+pdf:
+  enabled: true
+
+# Подключение плагинов
+extensions:
+  - name: mdit-plugins
+    plugins:
+      - '@diplodoc/transform/lib/plugins/checkbox'
