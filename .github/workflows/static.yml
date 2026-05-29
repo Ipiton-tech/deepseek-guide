@@ -1,9 +1,8 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Deploy Diplodoc to GitHub Pages
 
 on:
   push:
-    branches: ["main", "master", "test"]
+    branches: ["main", "master"]
   workflow_dispatch:
 
 permissions:
@@ -22,23 +21,36 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      # Шаг 1: Клонирование репозитория
       - name: Checkout
         uses: actions/checkout@v4
+
+      # Шаг 2: Настройка GitHub Pages
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      # Шаг 3: Установка Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 22
           cache: 'npm'
+
+      # Шаг 4: Установка зависимостей (ваш package.json)
       - name: Install dependencies
         run: npm ci
+
+      # Шаг 5: Сборка документации через yfm CLI
       - name: Build docs
-        run: npm run build:docs
+        run: npx yfm build -i ./docs -o ./docs-html
+
+      # Шаг 6: Загрузка собранных HTML-файлов
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './docs-html'
+
+      # Шаг 7: Публикация на GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
