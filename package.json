@@ -11,6 +11,6 @@
     "pdf:fix": "npm run build:pdf && npx --yes @diplodoc/pdf-generator@latest -i ./docs-pdf"
   },
   "dependencies": {
-    "@diplodoc/cli": "^1.0.0"
+    "@diplodoc/cli": "^5.39.2"
   }
 }
